@@ -23,8 +23,7 @@ const Login = () => {
       dispatch(addUser(response?.data?.data));
       navigate("/");
     } catch (error) {
-      setError("Invalid Credentials");
-      console.error(`Error while logging in: ${error}`);
+      setError(error.response.data);
     }
   };
 
