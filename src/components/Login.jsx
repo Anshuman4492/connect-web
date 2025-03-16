@@ -7,6 +7,7 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [email, setEmail] = useState("aman@gmail.com");
   const [password, setPassword] = useState("Aman@123");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
@@ -22,7 +23,8 @@ const Login = () => {
       dispatch(addUser(response?.data?.data));
       navigate("/");
     } catch (error) {
-      console.log(`Error while logging in: ${error}`);
+      setError("Invalid Credentials");
+      console.error(`Error while logging in: ${error}`);
     }
   };
 
@@ -48,6 +50,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </fieldset>
+          <p className="text-red-500">{error}</p>
           <div className="card-actions flex justify-center ">
             <button className="btn btn-success w-full" onClick={handleLogin}>
               Login
