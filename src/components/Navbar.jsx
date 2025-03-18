@@ -60,12 +60,12 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to={"/connections"}>My Connections</Link>
               </li>
               <li>
-                <a className="pointer" onClick={handleLogout}>
+                <Link className="pointer" onClick={handleLogout}>
                   Logout
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
