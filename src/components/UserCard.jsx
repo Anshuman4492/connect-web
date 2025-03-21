@@ -1,7 +1,25 @@
+import axios from "axios";
 import React from "react";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeUserFromFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user }) => {
-  const { firstName, lastName, age, gender, about, profileUrl, skills } = user;
+  if (!user) return;
+  const { _id, firstName, lastName, age, gender, about, profileUrl, skills } =
+    user;
+  const dispatch = useDispatch();
+  const sendRequest = async (status, userId) => {
+    try {
+      const response = await axios.post(
+        BASE_URL + "/request/send/" + status + "/" + userId,
+        {},
+        { withCredentials: true }
+      );
+      console.log(response?.data?.data);
+      dispatch(removeUserFromFeed(userId));
+    } catch (error) {}
+  };
   return (
     <div>
       <div className="card bg-base-300 w-96 shadow-sm">
@@ -18,8 +36,18 @@ const UserCard = ({ user }) => {
           <p>{about}</p>
           <p>{skills}</p>
           <div className="card-actions">
-            <button className="btn btn-primary">Ignore</button>
-            <button className="btn btn-secondary">Interested</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => sendRequest("pass", _id)}
+            >
+              Ignore
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => sendRequest("like", _id)}
+            >
+              Interested
+            </button>
           </div>
         </div>
       </div>

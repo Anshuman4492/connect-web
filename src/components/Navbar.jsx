@@ -19,8 +19,8 @@ const Navbar = () => {
         }
       );
       // Make sure to clear our user slice inside redux store
+      window.location.replace("/login");
       dispatch(removeUser());
-      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -51,16 +51,18 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow "
             >
               <li>
-                <Link to={"/profile"} className="justify-between">
+                <Link to={"/profile"} className="justify-between ">
                   Profile
-                  <span className="badge">New</span>
                 </Link>
               </li>
               <li>
                 <Link to={"/connections"}>My Connections</Link>
+              </li>
+              <li>
+                <Link to={"/requests"}>Pending Requests</Link>
               </li>
               <li>
                 <Link className="pointer" onClick={handleLogout}>

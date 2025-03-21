@@ -3,13 +3,14 @@ import UserCard from "./UserCard";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { addUser } from "../utils/userSlice";
 
 const EditProile = ({ user }) => {
   if (!user) return;
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
+  const [age, setAge] = useState(user.age || 0);
+  const [gender, setGender] = useState(user.gender || "male");
   const [profileUrl, setProfileUrl] = useState(user.profileUrl);
   const [about, setAbout] = useState(user.about);
   const [skills, setSkills] = useState(user.skills);
@@ -34,12 +35,12 @@ const EditProile = ({ user }) => {
         },
         { withCredentials: true }
       );
+      dispatch(addUser(response?.data?.data));
       setProfileSavedMessage(response?.data?.message);
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
       }, 3000);
-      dispatch(addUser(response?.data?.data));
     } catch (error) {
       setError(error?.response?.data);
     }
