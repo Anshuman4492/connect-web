@@ -28,7 +28,7 @@ const Body = () => {
     fetchUser();
   }, []);
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <Outlet />
       <Footer />

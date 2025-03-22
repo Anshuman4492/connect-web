@@ -22,7 +22,13 @@ const Connections = () => {
   useEffect(() => {
     fetchMyConnections();
   }, []);
-
+  if (!myConnectedConnections || myConnectedConnections.length === 0) {
+    return (
+      <div className="flex justify-center mt-10">
+        You don't have any connections. Please add some.
+      </div>
+    );
+  }
   return (
     <div className="">
       <ConnectionList myConnectedConnections={myConnectedConnections} />

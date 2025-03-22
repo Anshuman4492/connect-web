@@ -20,8 +20,8 @@ const RequestsList = ({ requests }) => {
       console.log(error);
     }
   };
-  if (requests.length === 0)
-    return <h1 className="text-center">No Requests Found</h1>;
+  if (!requests || requests.length === 0)
+    return <h1 className="flex justify-center mt-10">No Requests Found</h1>;
   return (
     <div>
       <ul className="list bg-base-100 rounded-box shadow-md w-3/8">
@@ -48,7 +48,7 @@ const RequestsList = ({ requests }) => {
                 </button>
                 <button
                   className="btn btn-outline btn-secondary"
-                  onClick={() => reviewRequest("accepted", _id)}
+                  onClick={() => reviewRequest("ignored", _id)}
                 >
                   Ignore
                 </button>

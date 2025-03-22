@@ -21,6 +21,13 @@ const Feed = () => {
   useEffect(() => {
     fetchFeed();
   }, []);
+  if (!feed || feed.length === 0) {
+    return (
+      <div className="flex justify-center mt-10">
+        We don't have new users to show. Please share us!
+      </div>
+    );
+  }
   return (
     <div className="flex justify-center my-10">
       {feed && <UserCard user={feed[0]} />}
