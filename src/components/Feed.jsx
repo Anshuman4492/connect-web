@@ -4,8 +4,11 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
+import { useNavigate } from "react-router-dom";
 const Feed = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const feed = useSelector((store) => store.feed);
   const fetchFeed = async () => {
     if (feed) return;
@@ -15,6 +18,7 @@ const Feed = () => {
       });
       dispatch(addFeed(response?.data?.data));
     } catch (error) {
+      navigate("/login");
       console.log(`Error while fetching feed: ${error}`);
     }
   };
