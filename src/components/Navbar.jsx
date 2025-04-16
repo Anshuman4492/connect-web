@@ -18,8 +18,8 @@ const Navbar = () => {
         }
       );
       // Make sure to clear our user slice inside redux store
-      window.location.replace("/login");
       dispatch(removeUser());
+      window.location.replace("/login");
     } catch (error) {
       console.log(error);
     }

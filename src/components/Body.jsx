@@ -29,7 +29,7 @@ const Body = () => {
   }, []);
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="bg-[url(https://tinder.com/static/build/8ad4e4299ef5e377d2ef00ba5c94c44c.webp)]">
+      <div>
         <Navbar />
         <Outlet />
       </div>

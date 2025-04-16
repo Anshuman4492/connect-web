@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { BASE_URL } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 const ConnectionList = ({ myConnectedConnections }) => {
   return (
@@ -20,23 +21,16 @@ const ConnectionList = ({ myConnectedConnections }) => {
                     Remaining Reason
                   </div>
                 </div>
-                <button className="btn btn-square btn-ghost">
-                  <svg
-                    className="size-[1.2em]"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                  >
-                    <g
-                      strokeLinejoin="round"
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      fill="none"
-                      stroke="currentColor"
+                <Link to={"/chat/" + _id}>
+                  <button className="btn btn-square btn-ghost">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
                     >
-                      <path d="M6 3L20 12 6 21 6 3z"></path>
-                    </g>
-                  </svg>
-                </button>
+                      <path d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 9.8 11.2 15.5 19.1 9.7L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64z" />
+                    </svg>
+                  </button>
+                </Link>
                 <button className="btn btn-square btn-ghost">
                   <svg
                     className="size-[1.2em]"
