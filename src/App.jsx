@@ -8,6 +8,7 @@ import Connections from "./components/Connections";
 import Requests from "./components/Requests";
 import Form from "./components/Form";
 import Chat from "./components/Chat";
+import VideoCall from "./components/VideoCall";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/requests" element={<Requests />} />
             <Route path="/signup" element={<Form />} />
             <Route path="/chat/:targetUserId" element={<Chat />} />
+            <Route path="/video/:targetUserId" element={<VideoCall />} />
           </Route>
         </Routes>
       </BrowserRouter>

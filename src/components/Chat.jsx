@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import createSocketConnection from "../utils/socket";
+import { createSocketConnection, createP2PConnection } from "../utils/socket";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -19,7 +19,6 @@ const Chat = () => {
         BASE_URL + "/chat/" + targetUserId,
         { withCredentials: true }
       );
-      console.log(olderMessages, "olderMessages");
       const chatMessages = olderMessages?.data?.chat?.messages.map((msg) => {
         const { senderId, text } = msg;
         return {
@@ -38,7 +37,21 @@ const Chat = () => {
 
     // Create a socket connection
     const socket = createSocketConnection();
-    console.log("Socket connection created:", socket);
+    const p2p = createP2PConnection(socket);
+    console.log("Socket connection created:", socket, p2p);
+
+    p2p.on("ready", () => {
+      console.log("P2P connection is ready");
+      p2p.usePeerConnection = true;
+      p2p.emit("peer-obj", { peerId: peerId });
+    });
+
+    // this event will be triggered over the socket transport
+    // until `usePeerConnection` is set to `true`
+    p2p.on("peer-msg", function (data) {
+      console.log(data);
+    });
+
     // As soon as page loads, join the chat
     socket.emit("joinChat", {
       firstName: user.firstName,
@@ -59,14 +72,21 @@ const Chat = () => {
       socket.disconnect();
     };
   }, [userId, targetUserId]);
-  console.log(messages);
+
   const sendMessage = () => {
     const socket = createSocketConnection();
+    const p2p = createP2PConnection(socket);
+
     socket.emit("sendMessage", {
       firstName: user.firstName,
       lastName: user.lastName,
       userId,
       targetUserId,
+      text: newMessage,
+    });
+    p2p.emit("peer-msg", {
+      firstName: user.firstName,
+      lastName: user.lastName,
       text: newMessage,
     });
     setNewMessage("");
